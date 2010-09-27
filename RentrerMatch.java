@@ -76,23 +76,22 @@ public class RentrerMatch extends HttpServlet {
 	public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		String erreur = "0";
 		Statement stmt = null;
+		PrintWriter out = res.getWriter();
 
 		/*Connexion à la base de données*/		
 		try{
 			this.ConnexionBDD();
 		}catch(Exception e){
-			System.out.println("Echec de connexion à la BDD");
+			out.println("Echec de connexion à la BDD");
 		}
 
 		try{
 			/*execution d'une requete*/		
 			stmt = this.con.createStatement();
 		}catch(SQLException e){
-			System.out.println("erreur sur la requete SQL");
+			e.getMessage();
 		}
 
-
-		PrintWriter out = res.getWriter();
 		
 		res.setContentType("text/html");
 
@@ -102,13 +101,13 @@ public class RentrerMatch extends HttpServlet {
 			erreur = req.getParameter("Err");
 			// traitements
 			if(erreur.equals("1")){
-				Affichage(out,1,stmt);
+				this.Affichage(out,1,stmt);
 			}else{
-				Affichage(out,0,stmt);
+				this.Affichage(out,0,stmt);
 			}
 		}catch(SQLException e){
 			try{
-				Affichage(out,0,stmt);
+				this.Affichage(out,0,stmt);
 			}catch(Exception er){
 				er.getMessage();
 			}
@@ -117,7 +116,7 @@ public class RentrerMatch extends HttpServlet {
 		try{
 			this.DeconnexionBDD();
 		}catch(Exception e){
-			System.out.println("Echec de déconnexion à la BDD");
+			out.println("Echec de déconnexion à la BDD");
 		}
 	}
 
