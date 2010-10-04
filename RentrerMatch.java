@@ -23,6 +23,25 @@ public class RentrerMatch extends HttpServlet {
 		/*fermeture des connexions Ã  la BDD*/
 		this.con.close();
 	}
+	public void SelectionEquipe(PrintWriter out, Statement stmt, String eq) throws SQLException {
+		/*Sélection de l'equipe à domicile*/		
+		out.println("<select name="+eq+" id="+eq+">");
+		out.println("equipe : "+eq);
+
+		String query = "select nom from equipe";
+		ResultSet rs =stmt.executeQuery(query);
+		
+		//variable pour stocker le nom de chaque equipe
+		String nom;
+		while(rs.next()){
+			//On change le nom de l'équipe à chaque tour de boucle
+			nom = rs.getString(1);
+			out.println("<option value="+nom+">"+nom+"</option>");
+			
+		}
+		out.println("</select>");
+	
+	}
 	
 	public void Affichage(PrintWriter out, int err,Statement stmt) throws SQLException {
 		
@@ -34,33 +53,19 @@ public class RentrerMatch extends HttpServlet {
 			out.println("<h3 align=center><font color=red>Vous ne pouvez selectionner qu'une seule fois une equipe</font></h3>");
 		}
 		
-		out.println("<br><form method=post action=RentrerResultatMatch> <p>Date</p><p class=EquipeDom>Equipe Domicile</p><p class=ScoreDom>Score Domicile></p><p class=ScoreExt>Score Exterieur</p><p class=EquipeExt>Equipe exterieur></p>");
-		out.println("<p><input type=text name=jour>/<input type=text name=mois>/<input type=text name=annee></p>");
+		out.println("<br><form method=post action=RentrerResultatMatch> <p>Date	Equipe Domicile	Score Domicile	Score Exterieur	Equipe exterieur</p>");
+		out.println("<p><input type=text name=jour size=2>/<input type=text name=mois size=2>/<input type=text name=annee size=4>");
 		
-		/*Sélection de l'equipe à domicile*/		
-		out.println("<p><select name=Domicile>");
-
-		String query = "select nom from equipe";
-		ResultSet rs =stmt.executeQuery(query);
-		
-		while(rs.next()){
-			out.println("<option value="+rs.getString(1)+">"+rs.getString(1)+"</option>");
-		}
-		out.println("</select>");
+		//Selection Equipe Domicile
+		this.SelectionEquipe(out,stmt,"Domicile");
 
 		/*Entrée des scores des équipes*/
-		out.println("<input type=text name=ScoreD><input type=text name=ScoreE>");
+		out.println("<input type=text name=ScoreD size=2><input type=text name=ScoreE size=2>");
 
-		/*Sélection de l'équipe à l'extèrieur*/
-		out.println("<p><select name=Exterieur>");
-		rs =stmt.executeQuery(query);
-		
-		while(rs.next()){
-			out.println("<option value="+rs.getString(1)+">"+rs.getString(1)+"</option>");
-		}
-		out.println("</select>");
+		//Sélection Equipe Exterieur
+		this.SelectionEquipe(out,stmt,"Exterieur");
 
-		out.println("<br><p align=center><input type=submit name=envoyer><input type=reset name=effacer></p>");
+		out.println("</p><br><p align=center><input type=submit name=envoyer><input type=reset name=effacer></p>");
 		out.println("</body></html>");
 	}
 
@@ -74,7 +79,11 @@ public class RentrerMatch extends HttpServlet {
   	}
 
 	public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		String erreur = "0";
+		HttpSession session = req.getSession(true);		
+		Integer erreur = (Integer)session.getAttribute("erreur");
+		erreur = new Integer(erreur == null ? 0 : erreur.intValue());
+		session.setAttribute("erreur",erreur);
+		
 		Statement stmt = null;
 		PrintWriter out = res.getWriter();
 
@@ -94,14 +103,18 @@ public class RentrerMatch extends HttpServlet {
 
 		
 		res.setContentType("text/html");
-
+		/*try{
+			this.Affichage(out,0,stmt);
+		}catch(SQLException sql){
+			sql.getMessage();
+		}*/
+		
 		/*Test si l'utilisateur a sélectionné 2 fois la même équipe*/
-		try{
-			// lecture de la requete
-			erreur = req.getParameter("Err");
+		try{			
 			// traitements
-			if(erreur.equals("1")){
+			if(erreur != 0){
 				this.Affichage(out,1,stmt);
+				session.setAttribute("erreur",0);
 			}else{
 				this.Affichage(out,0,stmt);
 			}
