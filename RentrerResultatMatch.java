@@ -18,7 +18,7 @@ public void doPost( HttpServletRequest req, HttpServletResponse res )
     Class.forName("sun.jdbc.odbc.JdbcOdbcDriver");
 
     // connexion à la base
-    String url = "jdbc:odbc:Cpp";
+    String url = "jdbc:odbc:cpp";
     String nom = "quhent";
     String mdp = "xxx";
     Connection con = DriverManager.getConnection(url,nom,mdp);
@@ -38,24 +38,30 @@ public void doPost( HttpServletRequest req, HttpServletResponse res )
 
     //Verification
     if(domicile.equals(exterieur)){
-	String url3 = "./RentrerMatch?Err=1";
+		HttpSession session = req.getSession(true);
+		session.setAttribute("erreur", 1);
+ 		String url3 = "./RentrerMatch";
         res.sendRedirect(url3);
-    }
+    }else{
 
     //Requête
     Date d=new Date(annee, mois, jour);
-    String saison = ""+d.getYear();
+	int year = d.getYear()+1;
+    String saison = ""+d.getYear()+"/"+year;
     String query = "insert into rencontre(date_renc, domicile, exterieur, score_dom, score_ext, saison) values( '"+d+"', '"+domicile+"', '"+exterieur+"', '"+scoreDom+"', '"+scoreExt+"', '"+saison+"')";
     int nb = stmt.executeUpdate(query);
 
     // fermeture des espaces
     con.close();
-    }catch(Exception e){
+    }
+	}catch(Exception e){
 	out.println(e.getMessage());
     }
-    String url2 = "../index.html";
-    res.sendRedirect(url2);
-   }
+	if(!(req.getParameter("Domicile").equals(req.getParameter("Exterieur")))){
+		String url2 = "../index.html";
+		res.sendRedirect(url2);
+	}
+}
 
     public void doGet( HttpServletRequest req, HttpServletResponse res )throws ServletException, IOException {
       PrintWriter out = res.getWriter();
