@@ -49,8 +49,18 @@ public class RentrerMatch extends HttpServlet {
 		out.println("<html xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang=\"fr\">");
 		out.println("<head><meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\" /><link href=\"style.css\" rel=\"stylesheet\" type=\"text/css\" /><title> Pronostiques Football </title></head>");
 		out.println("<body><h1 align=\"center\"><font color=\"blue\">Rentrer un match</font></h1><br><br>");
-		if(err == 1){
+		
+		/*Tests d'erreurs*/
+		if(err == 1){		/*Erreur sur les Equipes*/
 			out.println("<h3 align=center><font color=red>Vous ne pouvez selectionner qu'une seule fois une equipe</font></h3>");
+		}else if(err == 2){	/*Erreur sur l'année*/
+			out.println("<h3 align=center><font color=red>Annee incorrecte, veuillez rectifier</font></h3>");
+		}else if(err == 3){	/*Erreur sur le mois*/
+			out.println("<h3 align=center><font color=red>Mois incorrect, veuillez rectifier</font></h3>");
+		}else if(err == 4){	/*Erreur sur le jour*/
+			out.println("<h3 align=center><font color=red>jour incorrect, veuillez rectifier</font></h3>");
+		}else if(err == 5){	/*Erreur sur le score*/
+			out.println("<h3 align=center><font color=red>Score incorrect, veuillez rectifier</font></h3>");
 		}
 		
 		out.println("<br><form method=post action=RentrerResultatMatch> <p>Date	Equipe Domicile	Score Domicile	Score Exterieur	Equipe exterieur</p>");
@@ -58,7 +68,7 @@ public class RentrerMatch extends HttpServlet {
 		
 		//Selection Equipe Domicile
 		this.SelectionEquipe(out,stmt,"Domicile");
-
+		
 		/*Entrée des scores des équipes*/
 		out.println("<input type=text name=ScoreD size=2><input type=text name=ScoreE size=2>");
 
@@ -109,21 +119,19 @@ public class RentrerMatch extends HttpServlet {
 			sql.getMessage();
 		}*/
 		
-		/*Test si l'utilisateur a sélectionné 2 fois la même équipe*/
+		/*Test si il y a un cas d'erreur*/
 		try{			
 			// traitements
 			if(erreur != 0){
-				this.Affichage(out,1,stmt);
+				this.Affichage(out,erreur,stmt);
 				session.setAttribute("erreur",0);
 			}else{
 				this.Affichage(out,0,stmt);
 			}
 		}catch(SQLException e){
-			try{
-				this.Affichage(out,0,stmt);
-			}catch(Exception er){
-				er.getMessage();
-			}
+			out.println(e.getMessage());
+			//this.Affichage(out,0,stmt);
+			
 		}		
 		
 		try{
