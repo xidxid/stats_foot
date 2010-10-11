@@ -18,7 +18,7 @@ public void doPost( HttpServletRequest req, HttpServletResponse res )
     Class.forName("sun.jdbc.odbc.JdbcOdbcDriver");
 
     // connexion à la base
-    String url = "jdbc:odbc:Access";
+    String url = "jdbc:odbc:foot";
     String nom = "quhent";
     String mdp = "xxx";
     Connection con = DriverManager.getConnection(url,nom,mdp);

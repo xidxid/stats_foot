@@ -10,8 +10,8 @@ public class RentrerMatch extends HttpServlet {
 	public void ConnexionBDD()throws Exception{
 		/*enregistrement du driver*/
 		Class.forName("sun.jdbc.odbc.JdbcOdbcDriver");
-		/*Connexion à la base : source de données ODBC a le nom Access*/
-		String url = "jdbc:odbc:Access";
+		/*Connexion à la base : source de données ODBC a le nom foot*/
+		String url = "jdbc:odbc:foot";
 		String nom = "admin";
 		String mdp = "xxx";
 		this.con = DriverManager.getConnection(url,nom,mdp);

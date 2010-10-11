@@ -15,13 +15,13 @@ public void doPost( HttpServletRequest req, HttpServletResponse res )
     String choix = req.getParameter("choix");
 	
 	if(choix.equals("resultat")){
-		res.sendRedirect("./RentrerMatch");
+		res.sendRedirect("../ChoixInsertion.html");
 	}else if(choix.equals("probabilite")){
-		res.sendRedirect("../index.html");
+		res.sendRedirect("./ServletProno");
 	}else if(choix.equals("simulation")){
 		res.sendRedirect("../index.html");
 	}else{
-		res.sendRedirect("../index.html");
+		res.sendRedirect("./ServletSimu");
 	}
 
 }
