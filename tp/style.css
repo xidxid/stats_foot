@@ -1,0 +1,165 @@
+body {
+	margin: 0px;
+	padding: 0px;
+	background-color:#333333;
+	margin:auto;
+	height: 100%;
+
+}
+
+html{
+
+height: 100%;
+}
+
+#contenu {
+	padding: 10px 20px;
+}
+#contenu > :first-child {
+	margin-top: 10px;
+}
+
+
+#gauche
+{
+	position:absolute;
+	margin-top:10px;
+	margin-left:10px;
+	left:24%;/*Pour modifier l'écart de chaque côté des listes stats*/
+	
+}
+
+
+
+#droite 
+{
+	position:absolute;
+	margin-top:-110px;
+	margin-right:10px;
+	right:22%;/*Pour modifier l'écart de chaque côté des listes stats*/
+}
+
+#milieu
+{
+	
+	position:absolute center;
+	
+	margin-top:10px;
+	margin-right:15px;
+	margin-left:10px;
+
+}
+
+
+label{
+
+	color: #FFFFFF;
+	font-size: large;
+	
+
+}
+
+h1{
+	line-height: 0px;
+	color: #FFFFFF;
+	text-decoration: underline;	
+}
+
+h2{
+	color: #FFFFFF;
+	font-size: large;
+	
+}
+
+.vs
+{
+   color: white;
+   font-size: 40px;
+   text-align: center;
+}
+
+
+h3{
+	color: #FFFFFF;
+	font-size: x-large;
+	
+}
+
+div#navbar2 {
+	height: 30px;
+	width: 100%;
+	border-top: solid #333 5px;
+	border-bottom: solid #FFF 1px;
+	background-color: #181818;
+}
+
+div#navbar2 ul {
+	margin: 0px;
+	padding: 0px;
+	font-family: Georgia, Helvetica, sans-serif;
+	font-size: 17px;
+	color: #FFF;
+	line-height: 30px;
+	white-space: nowrap;
+}
+div#navbar2 li {
+	list-style-type: none;
+	display: inline;
+}
+div#navbar2 li a {
+	text-decoration: none;
+	padding: 7px 10px;
+	color: #FFF;
+}
+div#navbar2 li a:link {
+    color: #FFF:
+	
+}
+div#navbar2 li a:visited {
+    color: #FFF;
+	
+}
+div#navbar2 li a:hover {
+    
+    color: #000;
+    background-color: #3366FF;
+}
+
+
+#en_tete
+{
+   width: 100%;
+   height: 100px;
+   background-image: url("images/banniere2.jpg");
+   background-repeat: repeat;
+}
+
+#corps
+{
+   position: relative;
+}
+
+#container {
+
+position: relative;
+min-height: 100%;
+
+}
+
+#content {
+	padding: 10px;
+	background-color: #6caad9;
+	padding-bottom: 48px;
+}
+
+#pied_de_page
+{
+	position: absolute;/*Le barre sera mise en bas de page, mais si le contenu descend plus bas, elle ne suit pas*/
+	bottom: 0;
+	width: 100%;
+	text-align: center;
+	color: #B3B3B3;
+	background-color: #626262;
+    border: 2px solid black;
+   
+}
