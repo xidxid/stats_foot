@@ -1,0 +1,26 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//FR"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<link href="style.css" rel="stylesheet" type="text/css" />
+		<title> Pronostiques Football </title>
+	</head>
+	
+	<body>
+		<h1 align="center"><font color="blue">Pronostiques Football</font></h1><br><br>
+		<!---<h5 align="center">Séléction de l'action que vous souhaitez effectuer :</h5>-->
+		
+		<form action="./servlet/index2" method="post"><spanc class="titre">Séléction de l'action que vous souhaitez effectuer :<br><br>
+			<input type="radio" name="choix" value="resultat"><label for="resultat">Rentrer les résultat d'un match</label><br>
+			<input type="radio" name="choix" value="probabilite"><label for="probalite">Probabilités de gagner le prochain match</label><br>
+			<input type="radio" name="choix" value="simulation"><label for="simulation">Simulation du championnat</label><br>
+			<input type="radio" name="choix" value="statistiques"><label for="statistiques">Statistiques équipe</label><br>
+			<br>
+			<p align="center"><input type="submit" value="valider"/></p>
+		</form>
+
+		
+	</body>
+</html>
+

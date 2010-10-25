@@ -1,0 +1,15 @@
+Table equipe :
+
+nom | ville | ligue | points |
+
+Table home :
+
+nom | buts_pour | buts_contre | nb_match | nb_vict | nb_nul | nb_def
+
+Table ext :
+
+nom | buts_pour | buts_contre | nb_match | nb_vict | nb_nul | nb_def
+
+Table rencontre :
+
+id | date_renc | domicile | exterieur | score_dom | score_ext | saison
